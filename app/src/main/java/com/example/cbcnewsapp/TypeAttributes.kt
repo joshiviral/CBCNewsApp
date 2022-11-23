@@ -1,0 +1,31 @@
+package com.example.cbcnewsapp
+
+data class TypeAttributes(
+    val author: Author,
+    val body: Body,
+    val categories: List<Category>,
+    val commentsSectionId: String,
+    val components: Components,
+    val contextualHeadlines: List<ContextualHeadline>,
+    val deck: String,
+    val displayComments: Boolean,
+    val flag: String,
+    val flags: FlagsXXX,
+    val headline: HeadlineXXX,
+    val imageAspects: String,
+    val imageLarge: String,
+    val imageSmall: String,
+    val media: Any,
+    val mediaCaptionUrl: Any,
+    val mediaDuration: Any,
+    val mediaId: Any,
+    val mediaStreamType: Any,
+    val sectionLabels: List<String>,
+    val sectionList: List<String>,
+    val show: String,
+    val showSlug: String,
+    val trending: TrendingXXX,
+    val uppercaseHeadline: Boolean,
+    val url: String,
+    val urlSlug: String
+)
