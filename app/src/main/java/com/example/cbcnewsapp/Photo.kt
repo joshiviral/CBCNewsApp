@@ -4,7 +4,6 @@ data class Photo(
     val alt: String,
     val credit: String,
     val deck: String,
-    val derivatives: DerivativesX,
     val description: String,
     val headline: String,
     val id: String,

@@ -1,6 +1,7 @@
 package com.androiddevs.cbcnewapp.ui.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -16,6 +17,7 @@ class BreakingNewsFragment : Fragment(R.layout.fragment_breaking_news) {
 
     lateinit var viewModel: NewsViewModel
     lateinit var newsAdapter: NewsAdapter
+    val TAG = "BreakingNewsFragment"
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -26,9 +28,20 @@ class BreakingNewsFragment : Fragment(R.layout.fragment_breaking_news) {
             when (response) {
                 is Resource.Success -> {
                     hideProgressBar()
-                    response.data.let { newsResponse ->
+                    response.data?.let { newsResponse ->
                         newsAdapter.differ.submitList(newsResponse)
                     }
+                }
+                is Resource.Error->{
+                    hideProgressBar()
+                    response.message?.let {
+                        message ->
+                        Log.e(TAG,"An error occured: $message")
+                    }
+                }
+
+                is Resource.Loading ->{
+                    showProgressBar()
                 }
             }
         })

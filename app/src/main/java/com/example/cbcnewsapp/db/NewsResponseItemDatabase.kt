@@ -1,24 +1,25 @@
 package com.example.cbcnewsapp.db
 
 import android.content.Context
-import androidx.room.Database
-import androidx.room.Room
-import androidx.room.RoomDatabase
-import com.example.cbcnewsapp.models.MainContent
+import androidx.room.*
+import com.example.cbcnewsapp.models.NewsResponseItem
 import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.coroutines.internal.synchronized
 
 @Database(
-    entities = [MainContent::class],
+    entities = [NewsResponseItem::class],
     version = 1
 )
-abstract class MainContentDatabase : RoomDatabase() {
+@TypeConverters(Converters::class)
+abstract class NewsResponseItemDatabase : RoomDatabase() {
 
-    abstract fun getMainContentDao(): MainContentDao
+    abstract fun getNewsResponseItemDao(): NewsResponseItemtDao
 
     companion object {
         @Volatile
-        private var instance: MainContentDatabase? = null
+
+        // Recreating an instance which is single of our db
+        private var instance: NewsResponseItemDatabase? = null
         private val LOCK = Any()
 
 
@@ -31,8 +32,8 @@ abstract class MainContentDatabase : RoomDatabase() {
 
         private fun createDatabase(context: Context) = Room.databaseBuilder(
             context.applicationContext,
-            MainContentDatabase::class.java,
-            "maincontent_db.db"
+            NewsResponseItemDatabase::class.java,
+            "newsresponseitem_db.db"
         ).build()
     }
 

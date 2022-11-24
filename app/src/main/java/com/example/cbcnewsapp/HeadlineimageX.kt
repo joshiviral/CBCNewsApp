@@ -9,7 +9,6 @@ data class HeadlineimageX(
     val headline: String,
     val id: String,
     val jsonurl: String,
-    val originalimage: OriginalimageXXXXXX,
     val originalimageurl: String,
     val size: String,
     val title: String,

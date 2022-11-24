@@ -1,7 +1,5 @@
 package com.example.cbcnewsapp
 
-import com.example.cbcnewsapp.models.MainContent
-
 data class Components(
     val mainContent: MainContent,
     val mainVisual: MainVisual,

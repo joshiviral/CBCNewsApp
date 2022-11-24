@@ -1,12 +1,11 @@
 package com.example.cbcnewsapp
 
-data class NewsResponseItem(
+data class MainContent(
     val active: Boolean,
     val description: String,
     val draft: Boolean,
     val embedTypes: String,
     val id: Int,
-    val images: Images,
     val language: String,
     val publishedAt: Long,
     val readablePublishedAt: String,
@@ -15,7 +14,7 @@ data class NewsResponseItem(
     val sourceId: String,
     val title: String,
     val type: String,
-    val typeAttributes: TypeAttributes,
+    val typeAttributes: TypeAttributesX,
     val updatedAt: Long,
     val version: String
 )

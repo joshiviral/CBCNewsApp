@@ -6,7 +6,6 @@ data class Item(
     val draft: Boolean,
     val embedTypes: String,
     val id: Int,
-    val images: ImagesXX,
     val language: String,
     val publishedAt: Long,
     val readablePublishedAt: String,
@@ -15,7 +14,7 @@ data class Item(
     val sourceId: String,
     val title: String,
     val type: String,
-    val typeAttributes: TypeAttributesXX,
+    val typeAttributes: TypeAttributesXXX,
     val updatedAt: Long,
     val version: String
 )

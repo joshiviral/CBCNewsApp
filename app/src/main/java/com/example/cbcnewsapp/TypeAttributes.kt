@@ -10,7 +10,7 @@ data class TypeAttributes(
     val deck: String,
     val displayComments: Boolean,
     val flag: String,
-    val flags: FlagsXXX,
+    val flags: FlagsXXXX,
     val headline: HeadlineXXX,
     val imageAspects: String,
     val imageLarge: String,
@@ -24,7 +24,7 @@ data class TypeAttributes(
     val sectionList: List<String>,
     val show: String,
     val showSlug: String,
-    val trending: TrendingXXX,
+    val trending: TrendingXXXX,
     val uppercaseHeadline: Boolean,
     val url: String,
     val urlSlug: String

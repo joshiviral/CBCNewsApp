@@ -1,36 +1,41 @@
 package com.example.cbcnewsapp.adapters
 
 import android.view.LayoutInflater
-import android.view.OnReceiveContentListener
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.view.menu.ActionMenuItemView
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.cbcnewsapp.R
-import com.example.cbcnewsapp.models.MainContent
+import com.example.cbcnewsapp.models.NewsResponseItem
 import kotlinx.android.synthetic.main.item_article_preview.view.*
 
-class NewsAdapter : RecyclerView.Adapter<NewsAdapter.MainContentViewHolder>() {
+class NewsAdapter : RecyclerView.Adapter<NewsAdapter.NewsResponseItemViewHolder>() {
 
-    inner class MainContentViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
+    inner class NewsResponseItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
-    private val differCallBack = object : DiffUtil.ItemCallback<MainContent>() {
-        override fun areItemsTheSame(oldItem: MainContent, newItem: MainContent): Boolean {
-            return oldItem.sourceId == newItem.sourceId
+    private val differCallBack = object : DiffUtil.ItemCallback<NewsResponseItem>() {
+        override fun areItemsTheSame(
+            oldItem: NewsResponseItem,
+            newItem: NewsResponseItem
+        ): Boolean {
+            return oldItem.id == newItem.id
         }
 
-        override fun areContentsTheSame(oldItem: MainContent, newItem: MainContent): Boolean {
+        override fun areContentsTheSame(
+            oldItem: NewsResponseItem,
+            newItem: NewsResponseItem
+        ): Boolean {
             return oldItem == newItem
         }
     }
+    // AsynchronousList differ will run in the background
 
     val differ = AsyncListDiffer(this, differCallBack)
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainContentViewHolder {
-        return MainContentViewHolder(
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsResponseItemViewHolder {
+        return NewsResponseItemViewHolder(
             LayoutInflater.from(parent.context).inflate(
                 R.layout.item_article_preview,
                 parent,
@@ -43,24 +48,26 @@ class NewsAdapter : RecyclerView.Adapter<NewsAdapter.MainContentViewHolder>() {
         return differ.currentList.size
     }
 
-    override fun onBindViewHolder(holder: MainContentViewHolder, position: Int) {
-        val mainContent = differ.currentList[position]
+    override fun onBindViewHolder(holder: NewsResponseItemViewHolder, position: Int) {
+        val newsResponseItem = differ.currentList[position]
         holder.itemView.apply {
-
-            tvSource.text = mainContent.source.toString()
-            tvTitle.text = mainContent.title
-            tvDescription.text = mainContent.description
-            tvPublishedAt.text = mainContent.readablePublishedAt
+            Glide.with(this).load(newsResponseItem.images).into(ivArticleImage)
+            tvSource.text = newsResponseItem.source
+            tvTitle.text = newsResponseItem.title
+            tvDescription.text = newsResponseItem.description
+            tvPublishedAt.text = newsResponseItem.readablePublishedAt
             setOnClickListener {
-                onItemClickListener?.let { it(mainContent) }
+                onItemClickListener?.let { it(newsResponseItem) }
             }
 
         }
     }
 
-    private var onItemClickListener: ((MainContent) -> Unit)? = null
+    private var onItemClickListener: ((NewsResponseItem) -> Unit)? = null
 
-    fun setOnItemClickListener(listener: (MainContent) -> Unit) {
+    fun setOnItemClickListener(listener: (NewsResponseItem) -> Unit) {
         onItemClickListener = listener
     }
+
+
 }

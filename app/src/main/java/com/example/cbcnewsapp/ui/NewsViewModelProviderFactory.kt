@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.cbcnewsapp.repository.NewsRepository
 
+@SuppressWarnings("unchecked")
 class NewsViewModelProviderFactory(
     val newsRepository: NewsRepository
 ) : ViewModelProvider.Factory {

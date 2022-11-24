@@ -1,10 +1,8 @@
 package com.example.cbcnewsapp
 
-import androidx.room.Entity
-
 data class Content(
-    val author: AuthorXX,
-    val authors: List<AuthorXXX>,
+    val author: AuthorXXX,
+    val authors: List<AuthorXXXX>,
     val categories: List<String>,
     val categorization: Categorization,
     val deck: String,
@@ -14,6 +12,7 @@ data class Content(
     val epoch: Epoch,
     val extattrib: Extattrib,
     val flag: String,
+    val galleryAspectRatio: String,
     val headline: String,
     val headlineimage: Headlineimage,
     val headlinemedia: Headlinemedia,

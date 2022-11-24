@@ -1,16 +1,12 @@
 package com.example.cbcnewsapp
 
 data class TypeAttributesX(
-    val author: AuthorX,
-    val body: BodyX,
     val categories: Any,
     val commentsSectionId: String,
     val contextualHeadlines: Any,
     val deck: String,
     val displayComments: Boolean,
     val flag: String,
-    val flags: Flags,
-    val headline: Headline,
     val imageAspects: String,
     val imageLarge: String,
     val imageSmall: String,
@@ -23,7 +19,6 @@ data class TypeAttributesX(
     val sectionList: List<String>,
     val show: String,
     val showSlug: String,
-    val trending: Trending,
     val url: String,
     val urlSlug: String
 )

@@ -1,6 +1,6 @@
 package com.example.cbcnewsapp
 
-data class FlagsXXX(
+data class FlagsXXXX(
     val label: String,
     val status: String
 )
