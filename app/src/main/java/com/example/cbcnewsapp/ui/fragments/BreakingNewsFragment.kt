@@ -3,6 +3,7 @@ package com.androiddevs.cbcnewapp.ui.fragments
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -29,14 +30,14 @@ class BreakingNewsFragment : Fragment(R.layout.fragment_breaking_news) {
                 is Resource.Success -> {
                     hideProgressBar()
                     response.data?.let { newsResponse ->
-                        newsAdapter.differ.submitList(newsResponse)
+                        newsAdapter.differ.submitList(newsResponse.newsResponseItem)
                     }
                 }
                 is Resource.Error->{
                     hideProgressBar()
                     response.message?.let {
                         message ->
-                        Log.e(TAG,"An error occured: $message")
+                        Toast.makeText(activity,"An error occured: $message", Toast.LENGTH_LONG).show()
                     }
                 }
 

@@ -20,7 +20,7 @@ class NewsAdapter : RecyclerView.Adapter<NewsAdapter.NewsResponseItemViewHolder>
             oldItem: NewsResponseItem,
             newItem: NewsResponseItem
         ): Boolean {
-            return oldItem.id == newItem.id
+            return oldItem.sourceId == newItem.sourceId
         }
 
         override fun areContentsTheSame(

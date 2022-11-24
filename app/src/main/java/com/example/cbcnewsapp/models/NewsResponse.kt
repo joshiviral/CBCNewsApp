@@ -1,3 +1,5 @@
 package com.example.cbcnewsapp.models
 
-class NewsResponse : ArrayList<NewsResponseItem>()
+class NewsResponse(
+    val newsResponseItem: ArrayList<NewsResponseItem>
+)

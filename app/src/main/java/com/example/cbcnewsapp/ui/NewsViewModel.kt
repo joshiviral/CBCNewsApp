@@ -29,20 +29,26 @@ class NewsViewModel(
     val breakingNews: MutableLiveData<Resource<NewsResponse>> = MutableLiveData()
     var breakingNewsPage = 1
 
+    var breakingNewsResponse : NewsResponse? = null
+
     init {
         getBreakingNews("Breaking News")
     }
 
 
     fun getBreakingNews(q: String) = viewModelScope.launch {
-        breakingNews.postValue(Resource.Loading())
-
-
+        safeBreakingnewsCall(q)
     }
 
     private fun handleBreakingNewsResponse(response: Response<NewsResponse>): Resource<NewsResponse> {
         if (response.isSuccessful) {
             response.body()?.let { resultResponse ->
+                breakingNewsPage++
+                if(breakingNewsResponse == null){
+                    breakingNewsResponse = resultResponse
+                }else{
+                    val oldNewsResponseItems = breakingNewsResponse?.newsResponseItem
+                }
                 return Resource.Success(resultResponse)
             }
         }
@@ -53,13 +59,14 @@ class NewsViewModel(
     private suspend fun safeBreakingnewsCall(q: String) {
         breakingNews.postValue(Resource.Loading())
         try {
-            if(hasInternetConnection()) {
+            if (hasInternetConnection()) {
                 val response = newsRepository.getBreakingNews(q, breakingNewsPage)
                 breakingNews.postValue(handleBreakingNewsResponse(response))
-            }else{
+            } else {
                 breakingNews.postValue(Resource.Error("No Internet Connection"))
-            }        } catch (t: Throwable) {
-            when(t){
+            }
+        } catch (t: Throwable) {
+            when (t) {
                 is IOException -> breakingNews.postValue(Resource.Error("Network Failure"))
                 else -> breakingNews.postValue(Resource.Error("Conversion Error"))
             }
@@ -70,35 +77,35 @@ class NewsViewModel(
 
     //to check whether the user is connected to internet or not
 
-     private fun hasInternetConnection(): Boolean {
+    private fun hasInternetConnection(): Boolean {
 
-         val connectivityManager =
-             getApplication<NewsApplication>().getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-             val activenetwork = connectivityManager.activeNetwork ?: return false
-             val capabilities =
-                 connectivityManager.getNetworkCapabilities(activenetwork) ?: return false
+        val connectivityManager =
+            getApplication<NewsApplication>().getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            val activenetwork = connectivityManager.activeNetwork ?: return false
+            val capabilities =
+                connectivityManager.getNetworkCapabilities(activenetwork) ?: return false
 
-             return when {
-                 capabilities.hasTransport(TRANSPORT_WIFI) -> true
-                 capabilities.hasTransport(TRANSPORT_CELLULAR) -> true
-                 capabilities.hasTransport(TRANSPORT_ETHERNET) -> true
+            return when {
+                capabilities.hasTransport(TRANSPORT_WIFI) -> true
+                capabilities.hasTransport(TRANSPORT_CELLULAR) -> true
+                capabilities.hasTransport(TRANSPORT_ETHERNET) -> true
 
-                 else -> false
-             }
+                else -> false
+            }
 
-         } else {
-             connectivityManager.activeNetworkInfo?.run {
-                 return when (type) {
-                     TYPE_WIFI -> true
-                     TYPE_MOBILE -> true
-                     TYPE_ETHERNET -> true
-                     else -> false
-                 }
-             }
+        } else {
+            connectivityManager.activeNetworkInfo?.run {
+                return when (type) {
+                    TYPE_WIFI -> true
+                    TYPE_MOBILE -> true
+                    TYPE_ETHERNET -> true
+                    else -> false
+                }
+            }
 
-         }
-         return false
-     }
+        }
+        return false
+    }
 
 }
