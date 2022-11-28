@@ -43,6 +43,7 @@ class NewsAdapter(private val newsResponseItemClick: (Int) -> Unit) :
 
         private val headline = itemView.findViewById<TextView>(R.id.tvTitle)
         private val description_item = itemView.findViewById<TextView>(R.id.tvDescription)
+        private val type_item = itemView.findViewById<TextView>(R.id.tvSource)
         private val publishedate = itemView.findViewById<TextView>(R.id.tvPublishedAt)
         private val images_news = itemView.findViewById<ImageView>(R.id.ivArticleImage)
 
@@ -51,7 +52,8 @@ class NewsAdapter(private val newsResponseItemClick: (Int) -> Unit) :
             with(newsResponseItem) {
                 headline.text = title
                 description_item.text = description
-                publishedate.text = publishedAt.toString()
+                type_item.text = type
+                publishedate.text = readablePublishedAt.toString()
                 images.let { images_news.loadUrl(it.square_140) }
             }
         }
