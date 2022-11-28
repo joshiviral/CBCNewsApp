@@ -1,7 +1,6 @@
 package com.androiddevs.cbcnewapp.ui.fragments
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -29,19 +28,13 @@ class BreakingNewsFragment : Fragment(R.layout.fragment_breaking_news) {
             when (response) {
                 is Resource.Success -> {
                     hideProgressBar()
-                    response.data?.let { newsResponse ->
-                        newsAdapter.differ.submitList(newsResponse.newsResponseItem)
-                    }
+                    newsAdapter.submitList(response.data)
                 }
-                is Resource.Error->{
+                is Resource.Error -> {
                     hideProgressBar()
-                    response.message?.let {
-                        message ->
-                        Toast.makeText(activity,"An error occured: $message", Toast.LENGTH_LONG).show()
-                    }
+                    Toast.makeText(activity, response.message, Toast.LENGTH_SHORT).show()
                 }
-
-                is Resource.Loading ->{
+                is Resource.Loading -> {
                     showProgressBar()
                 }
             }
@@ -49,7 +42,7 @@ class BreakingNewsFragment : Fragment(R.layout.fragment_breaking_news) {
     }
 
     private fun setupRecyclerView() {
-        newsAdapter = NewsAdapter()
+        newsAdapter= NewsAdapter{}
         rvBreakingNews.apply {
             adapter = newsAdapter
             layoutManager = LinearLayoutManager(activity)

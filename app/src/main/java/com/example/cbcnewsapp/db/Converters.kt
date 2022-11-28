@@ -2,7 +2,7 @@ package com.example.cbcnewsapp.db
 
 
 import androidx.room.TypeConverter
-import com.example.cbcnewsapp.Images
+import com.example.cbcnewsapp.models.Images
 
 class Converters {
     @TypeConverter
